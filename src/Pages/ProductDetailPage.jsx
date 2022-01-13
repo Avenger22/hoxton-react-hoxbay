@@ -1,7 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
+const randColour = ["green", "red", "blue", "yellow"][
+    Math.floor(Math.random() * 4)
+];
+
 function ProductDetailPage() {
+
 
     const params = useParams()
     const [product, setProduct] = useState(null)
@@ -15,9 +20,9 @@ function ProductDetailPage() {
     if (product === null) return <main>Loading...</main>
     if (product.title === undefined) return <main>Product not found</main>
 
-    // function handleButtonRedirect() {
-    //     return 
-    // }
+    function handleButtonRedirect() {
+        window.location.href = '/test'
+    }
 
     return (
 
@@ -30,7 +35,7 @@ function ProductDetailPage() {
                     alt = {product.description}
                 />
 
-                <div className="product-detail__side" style="border-color: var(--yellow);">
+                <div className="product-detail__side" style={{ borderColor: `var(--${randColour})` }}>
 
                     <h3></h3>
                     <h2>{product.title}</h2>
@@ -41,8 +46,8 @@ function ProductDetailPage() {
 
                     <p>{product.price}</p>
 
-                    <button>
-                    {/* // onClick={handleButtonRedirect}> */}
+                    <button
+                        onClick={handleButtonRedirect}>
                         Add to basket
                     </button>
 

@@ -8,7 +8,7 @@ function CategoryPage(props) {
 
         <li>
             <Link to = {`/categories/${category.id}`}>
-                electronics
+                {category.name}
             </Link>
         </li>
 

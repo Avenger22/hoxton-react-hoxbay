@@ -14,14 +14,14 @@ function CategoriesPage(props) {
 
                     {
 
-                        categories.map(category => {
+                        categories.map(category => 
 
                             <Category 
                                 key = {category.id}
                                 category = {category}
                             />
 
-                        })
+                        )
 
                     }
                     
