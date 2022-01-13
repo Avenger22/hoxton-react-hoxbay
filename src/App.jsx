@@ -1,15 +1,20 @@
 // #region 'Importing'
 import Header from "./components/Header"
+
 import "../src/App.css"
+import "../src/main.css"
 
 import BasketPage from '../src/Pages/BasketPage'
 import CategoriesPage from '../src/Pages/CategoriesPage'
+
 import ProductsPage from '../src/Pages/ProductsPage'
 import ProductDetailPage from '../src/Pages/ProductDetailPage'
+
 import HomePage from "./Pages/HomePage"
 import NotFoundPage from './Pages/NotFoundPage'
 
 import {Routes, Route} from 'react-router-dom'
+
 import { useState } from "react"
 import { useEffect } from "react"
 // #endregion
@@ -19,6 +24,8 @@ function App() {
   // #region 'State Object'
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
+
+  const [categoriesChecked, setCategoriesChecked] = useState(null)
   // #endregion
 
   // #region 'Server Functions'
@@ -60,7 +67,7 @@ function App() {
 
           <Route 
             path = '/categories' 
-            element = {<CategoriesPage  categories = {categories}/>}>
+            element = {<CategoriesPage categories = {categories} setCategoriesChecked = {setCategoriesChecked} setCategories = {setCategories}/>}>
           </Route>
 
           <Route 
