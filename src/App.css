@@ -6,6 +6,18 @@ li {
   list-style: none;
 }
 
+.special-a {
+  color: #0064d3;
+  padding: 15px 15px;
+  border: 2px solid #88b719;
+  cursor: pointer;
+}
+
+.special-a:hover {
+  background-color: #e53238;
+  color: #f5f5f5;
+}
+
 button {
   background: unset;
   border: unset;
@@ -189,6 +201,7 @@ img {
   grid-template-columns: repeat(auto-fit, 300px);
   grid-gap: 2rem;
   place-content: center;
+  padding-top: 150px;
 }
 
 .categories-container__list a {

@@ -35,6 +35,14 @@ function ProductDetailPage(props) {
 
         <main>
 
+                {/* <Link className = "special-a" to="/products">
+                    <button onClick = {function(e) {
+                            
+                        }}>
+                            Go back
+                    </button>
+                </Link> */}
+
             <section className="product-detail main-wrapper">
 
                 <img
@@ -54,13 +62,15 @@ function ProductDetailPage(props) {
 
                     <p>{product.price}</p>
 
-                    <button
-                        onClick={
-                            function () {
-                                handleButtonAddBasket(product)
-                            }}>
-                        Add to basket
-                    </button>
+                    <Link to={"/basket"}>
+                        <button
+                            onClick={
+                                function () {
+                                    handleButtonAddBasket(product)
+                                }}>
+                            Add to basket
+                        </button>
+                    </Link>
 
                 </div>
 

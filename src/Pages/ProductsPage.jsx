@@ -1,19 +1,27 @@
+import { Link } from 'react-router-dom'
 import Product from '../components/Product'
 
 function ProductsPage (props) {
 
-    const {products, filteredProducts} = props 
+    const {products, filteredProducts, setCategoryValue, categoryValue} = props 
 
-    console.log(filteredProducts)
-    
     return (
 
         <main>
 
             <section className="products-container main-wrapper">
 
-                <ul className="products-container__list">
+                {/* <Link className = "special-a" to="/home">
+                    <button onClick = {function() {
+                            const newObject = {...categoryValue, clicked: !categoryValue.clicked}
+                            setCategoryValue(newObject)
+                        }}>
+                            Show All no filter
+                    </button>
+                </Link> */}
 
+                <ul className="products-container__list">
+                    
                     {
 
                         filteredProducts.map(product => 

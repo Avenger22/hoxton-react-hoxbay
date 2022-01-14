@@ -26,7 +26,7 @@ function App() {
   const [categories, setCategories] = useState([])
 
   const [basketProducts, setBasketProducts] = useState([])
-  const [categoryValue, setCategoryValue] = useState(null)
+  const [categoryValue, setCategoryValue] = useState({value: null, clicked: false})
 
   // #endregion
 
@@ -57,20 +57,22 @@ function App() {
   // }
 
   function filterProductsByCategory(filteredProductsParam) {
-    return filteredProductsParam.filter(product => product.categoryId === categoryValue)
+    return filteredProductsParam.filter(product => product.categoryId === categoryValue.value)
   }
 
   let filteredProducts = products
 
-  console.log(filteredProducts)
-
-  if (categoryValue) {
+  if (categoryValue.clicked) {
     filteredProducts = filterProductsByCategory(filteredProducts)
+  }
+
+  else {
+    let initialFilteredProducts = JSON.parse(JSON.stringify(products)) //great for having initial withotu mutating array from state
+    filteredProducts = initialFilteredProducts
   }
 
   // #endregion
 
-  console.log(categoryValue, filteredProducts, products)
   // #region 'App Html'
   return (
 
@@ -78,7 +80,10 @@ function App() {
 
       <main>
         
-        <Header />
+        <Header 
+          categoryValue = {categoryValue}
+          setCategoryValue = {setCategoryValue}
+        />
 
         {
           //#region 'Routes'
@@ -102,15 +107,18 @@ function App() {
               <CategoriesPage 
                 categories = {categories} 
                 setCategoryValue = {setCategoryValue}
+                categoryValue = {categoryValue}
               />}
             >
           </Route>
 
           <Route 
-            path = '/categories/:id' 
-            element = {<ProductsPage 
-            products = {products} 
-            filteredProducts = {filteredProducts}/>}>
+              path = '/categories/:id' 
+              element = {<ProductsPage 
+              products = {products} 
+              filteredProducts = {filteredProducts}
+              setCategoryValue = {setCategoryValue}
+            />}>
           </Route>
 
           <Route 
@@ -129,6 +137,9 @@ function App() {
               <ProductsPage 
                 products = {products} 
                 filteredProducts = {filteredProducts}
+
+                categoryValue = {categoryValue}
+                setCategoryValue = {setCategoryValue}
               />}
             >
           </Route>

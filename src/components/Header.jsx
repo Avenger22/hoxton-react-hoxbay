@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 const randColour = () =>
   ["green", "red", "blue", "yellow"][Math.floor(Math.random() * 4)];
 
-function Header() {
+function Header(props) {
+
+  const {categoryValue, setCategoryValue} = props
 
   return (
 
@@ -30,7 +32,15 @@ function Header() {
           </li>
 
           <li>
-            <Link to='/products'>Products</Link>
+              <Link to='/products'>
+                {/* <button onClick = {function() {
+                  const newObject = {...categoryValue, clicked: !categoryValue.clicked}
+                    setCategoryValue(newObject)
+                  }}>
+                  Products
+                </button> */}
+                Products
+              </Link>
           </li>
 
           <li>
