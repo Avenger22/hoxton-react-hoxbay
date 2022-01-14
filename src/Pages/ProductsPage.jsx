@@ -9,13 +9,13 @@ function ProductsPage (props) {
 
         <main>
 
-            <input type="text" name='input-serch' value={searchTerm} placeholder='Search Item' 
+            {/* <input type="text" name='input-serch' value={searchTerm} placeholder='Search Item' 
                 onChange = {function (e) {
                     // e.preventDefault()
                     let title = e.target.value
                     // console.log(title)
                     setSearchTerm(title)
-                }}/>
+                }}/> */}
 
             <section className="products-container main-wrapper">
 

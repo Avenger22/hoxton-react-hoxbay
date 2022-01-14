@@ -56,16 +56,16 @@ function App() {
     return filteredProductsParam.filter(product => product.categoryId === categoryValue.value)
   }
 
-  function filterProductsByName(filteredProductsParam) {
-    return filteredProductsParam.filter(product => product.title.toUpperCase().includes(searchTerm.toUpperCase()))
-  }
+  // function filterProductsByName(filteredProductsParam) {
+  //   return filteredProductsParam.filter(product => product.title.toUpperCase().includes(searchTerm.toUpperCase()))
+  // }
 
   let filteredProducts = products
 
-  if (searchTerm !== '') {
-    filteredProducts = filterProductsByName(filteredProducts)
-    console.log(filteredProducts)
-  }
+  // if (searchTerm !== '' && categoryValue.clicked === false) {
+  //   filteredProducts = filterProductsByName(filteredProducts)
+  //   console.log(filteredProducts)
+  // }
 
   if (categoryValue.clicked === true) {
     filteredProducts = filterProductsByCategory(filteredProducts)
