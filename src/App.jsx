@@ -60,7 +60,8 @@ function App() {
     return filteredProductsParam.filter(product => product.categoryId === categoryValue)
   }
 
-  let filteredProducts = products
+  let filteredProducts = [...products]
+  console.log(filteredProducts)
 
   if (categoryValue !== 0) {
     filteredProducts = filterProductsByCategory(filteredProducts)
@@ -77,12 +78,16 @@ function App() {
         
         <Header />
 
+        {
+          //#region 'Routes'
+        }
+
         <Routes>
 
-        <Route 
-          index 
-          element={<Navigate replace to="/home" />} 
-        />
+          <Route 
+            index 
+            element={<Navigate replace to="/home" />} 
+          />
 
           <Route 
             path = '/home' 
@@ -101,11 +106,7 @@ function App() {
 
           <Route 
             path = '/categories/:id' 
-              element = {
-              <CategoriesProducts 
-               
-              />}
-            >
+            element = {<CategoriesProducts />}>
           </Route>
 
           <Route 
@@ -144,6 +145,10 @@ function App() {
           </Route>
         
         </Routes>
+
+        {
+          //#endregion
+        }
 
       </main>
 
