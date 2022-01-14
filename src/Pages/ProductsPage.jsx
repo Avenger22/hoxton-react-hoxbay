@@ -2,7 +2,7 @@ import Product from '../components/Product'
 
 function ProductsPage (props) {
 
-    const {products} = props 
+    const {products, filteredProducts} = props 
     
     return (
 
@@ -14,7 +14,7 @@ function ProductsPage (props) {
 
                     {
 
-                        products.map(product => 
+                        filteredProducts.map(product => 
 
                             <Product 
                                 key = {product.id}

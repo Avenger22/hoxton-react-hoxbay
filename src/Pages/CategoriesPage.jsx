@@ -2,7 +2,7 @@ import Category from '../components/Category'
 
 function CategoriesPage(props) {
 
-    const {categories, setCategoriesChecked, setCategories} = props  
+    const {categories, setCategoryValue} = props 
 
     return (
 
@@ -19,11 +19,7 @@ function CategoriesPage(props) {
                             <Category 
                                 key = {category.id}
                                 category = {category}
-                                
-                                categories = {categories}
-                                setCategoriesChecked = {setCategoriesChecked}
-                                setCategories = {setCategories}
-
+                                setCategoryValue = {setCategoryValue}
                             />
 
                         )

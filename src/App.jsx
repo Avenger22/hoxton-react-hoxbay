@@ -2,7 +2,6 @@
 import Header from "./components/Header"
 
 import "../src/App.css"
-import "../src/main.css"
 
 import BasketPage from '../src/Pages/BasketPage'
 import CategoriesPage from '../src/Pages/CategoriesPage'
@@ -25,7 +24,10 @@ function App() {
   // #region 'State Object'
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
+
   const [basketProducts, setBasketPrdoucts] = useState([])
+  const [categoryValue, setCategoryValue] = useState(null)
+
   // #endregion
 
   // #region 'Server Functions'
@@ -49,6 +51,23 @@ function App() {
   useEffect(getCategoriesFromServer, [])
   // #endregion
 
+  // #region 'Conditionals'
+  // if (basketProducts.length > 0) {
+  //   window.location.href = '/basket'
+  // }
+
+  function filterProductsByCategory(filteredProductsParam) {
+    return filteredProductsParam.filter(product => product.categoryId === categoryValue)
+  }
+
+  let filteredProducts = products
+
+  if (categoryValue !== 0) {
+    filteredProducts = filterProductsByCategory(filteredProducts)
+  }
+
+  // #endregion
+
   // #region 'App Html Returning'
   return (
 
@@ -58,7 +77,6 @@ function App() {
         
         <Header />
 
-        {/* // #region 'Routes' */ }
         <Routes>
 
         <Route 
@@ -73,22 +91,41 @@ function App() {
 
           <Route 
             path = '/categories' 
-            element = {<CategoriesPage categories = {categories} setCategories = {setCategories}/>}>
+            element = {
+              <CategoriesPage 
+                categories = {categories} 
+                setCategoryValue = {setCategoryValue}
+              />}
+            >
           </Route>
 
           <Route 
             path = '/categories/:id' 
-            element = {<CategoriesProducts categories = {categories} setCategories = {setCategories}/>}>
+              element = {
+              <CategoriesProducts 
+               
+              />}
+            >
           </Route>
 
           <Route 
             path = '/basket' 
-            element = {<BasketPage basketProducts = {basketProducts} setBasketPrdoucts = {setBasketPrdoucts}/>}>
+            element = {
+              <BasketPage 
+                basketProducts = {basketProducts} 
+                setBasketPrdoucts = {setBasketPrdoucts}
+              />}
+            >
           </Route>
           
           <Route 
             path = '/products' 
-            element = {<ProductsPage products = {products}/>}>
+            element = {
+              <ProductsPage 
+                products = {products} 
+                filteredProducts = {filteredProducts}
+              />}
+            >
           </Route>
 
           <Route 
@@ -98,11 +135,15 @@ function App() {
           
           <Route 
             path = '/products/:id' 
-            element = {<ProductDetailPage  basketProducts = {basketProducts} setBasketPrdoucts = {setBasketPrdoucts} />}>
+            element = {
+              <ProductDetailPage  
+                basketProducts = {basketProducts} 
+                setBasketPrdoucts = {setBasketPrdoucts}
+              />}
+            >
           </Route>
         
         </Routes>
-        {/* //#endregion */}
 
       </main>
 

@@ -23,9 +23,7 @@ function ProductDetailPage(props) {
     if (product === null) return <main>Loading...</main>
     if (product.title === undefined) return <main>Product not found</main>
 
-    function handleButtonRedirect(productParam) {
-
-        // window.location.href = '/test'
+    function handleButtonAddBasket(productParam) {
 
         const newProduct = {
             title: productParam.title,
@@ -65,7 +63,7 @@ function ProductDetailPage(props) {
                     <button
                         onClick={
                             function () {
-                                handleButtonRedirect(product)
+                                handleButtonAddBasket(product)
                             }}>
                         Add to basket
                     </button>

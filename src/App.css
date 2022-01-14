@@ -204,7 +204,7 @@ img {
 
 .categories-container__list a:hover {
   color: var(--random-colour);
-  border: 2px solid var(--random-colour);
+  border: 5px solid var(--random-colour);
   background-color: var(--white);
 }
 
@@ -252,4 +252,8 @@ img {
   align-items: center;
   grid-template-columns: auto 3fr 1fr 1fr;
   column-gap: 2rem;
+}
+
+.categories-container__list a {
+  background-color: #0064d3;
 }

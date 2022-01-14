@@ -1,8 +1,11 @@
-function CategoriesProducts(pros) {
+import ProductsPage from '../Pages/ProductsPage'
+
+function CategoriesProducts() { 
 
     return (
-        <>
         
+        <>
+            <ProductsPage/>
         </>
 
     )
