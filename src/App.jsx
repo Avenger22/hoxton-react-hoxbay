@@ -27,7 +27,7 @@ function App() {
 
   const [basketProducts, setBasketProducts] = useState([])
   const [categoryValue, setCategoryValue] = useState({value: null, clicked: false})
-
+  const [searchTerm, setSearchTerm] = useState('')
   // #endregion
 
   // #region 'Server Functions'
@@ -52,17 +52,22 @@ function App() {
   // #endregion
 
   // #region 'Conditionals'
-  // if (basketProducts.length > 0) {
-  //   window.location.href = '/basket'
-  // }
-
   function filterProductsByCategory(filteredProductsParam) {
     return filteredProductsParam.filter(product => product.categoryId === categoryValue.value)
   }
 
+  function filterProductsByName(filteredProductsParam) {
+    return filteredProductsParam.filter(product => product.title.toUpperCase().includes(searchTerm.toUpperCase()))
+  }
+
   let filteredProducts = products
 
-  if (categoryValue.clicked) {
+  if (searchTerm !== '') {
+    filteredProducts = filterProductsByName(filteredProducts)
+    console.log(filteredProducts)
+  }
+
+  if (categoryValue.clicked === true) {
     filteredProducts = filterProductsByCategory(filteredProducts)
   }
 
@@ -113,12 +118,17 @@ function App() {
           </Route>
 
           <Route 
-              path = '/categories/:id' 
-              element = {<ProductsPage 
-              products = {products} 
-              filteredProducts = {filteredProducts}
-              setCategoryValue = {setCategoryValue}
-            />}>
+                path = '/categories/:id' 
+                element = {<ProductsPage 
+                products = {products} 
+
+                filteredProducts = {filteredProducts}
+                setCategoryValue = {setCategoryValue}
+
+                searchTerm = {searchTerm}
+                setSearchTerm = {setSearchTerm}
+              />}
+            >
           </Route>
 
           <Route 
@@ -140,6 +150,9 @@ function App() {
 
                 categoryValue = {categoryValue}
                 setCategoryValue = {setCategoryValue}
+
+                searchTerm = {searchTerm}
+                setSearchTerm = {setSearchTerm}
               />}
             >
           </Route>
