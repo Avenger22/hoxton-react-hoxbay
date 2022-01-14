@@ -25,7 +25,7 @@ function App() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
 
-  const [basketProducts, setBasketPrdoucts] = useState([])
+  const [basketProducts, setBasketProducts] = useState([])
   const [categoryValue, setCategoryValue] = useState(null)
 
   // #endregion
@@ -60,16 +60,18 @@ function App() {
     return filteredProductsParam.filter(product => product.categoryId === categoryValue)
   }
 
-  let filteredProducts = [...products]
+  let filteredProducts = products
+
   console.log(filteredProducts)
 
-  if (categoryValue !== 0) {
+  if (categoryValue) {
     filteredProducts = filterProductsByCategory(filteredProducts)
   }
 
   // #endregion
 
-  // #region 'App Html Returning'
+  console.log(categoryValue, filteredProducts, products)
+  // #region 'App Html'
   return (
 
     <div className="app">
@@ -106,7 +108,9 @@ function App() {
 
           <Route 
             path = '/categories/:id' 
-            element = {<CategoriesProducts />}>
+            element = {<ProductsPage 
+            products = {products} 
+            filteredProducts = {filteredProducts}/>}>
           </Route>
 
           <Route 
@@ -114,7 +118,7 @@ function App() {
             element = {
               <BasketPage 
                 basketProducts = {basketProducts} 
-                setBasketPrdoucts = {setBasketPrdoucts}
+                setBasketProducts = {setBasketProducts}
               />}
             >
           </Route>
@@ -139,7 +143,7 @@ function App() {
             element = {
               <ProductDetailPage  
                 basketProducts = {basketProducts} 
-                setBasketPrdoucts = {setBasketPrdoucts}
+                setBasketProducts = {setBasketProducts}
               />}
             >
           </Route>

@@ -12,7 +12,7 @@ function ProductDetailPage(props) {
 
     const [product, setProduct] = useState(null)
 
-    const {basketProducts, setBasketPrdoucts} = props 
+    const {basketProducts, setBasketProducts} = props 
 
     useEffect(() => {
         fetch(`http://localhost:8000/products/${params.id}`)
@@ -25,15 +25,9 @@ function ProductDetailPage(props) {
 
     function handleButtonAddBasket(productParam) {
 
-        const newProduct = {
-            title: productParam.title,
-            price: productParam.price,
-            description: productParam.description,
-            image: productParam.image
-        }
-
+        const newProduct = {...productParam,  quantity: productParam.quantity? productParam.quantity + 1 : 1}
         const newBasketArray = [...basketProducts, newProduct]
-        setBasketPrdoucts(newBasketArray)
+        setBasketProducts(newBasketArray)
 
     }
 

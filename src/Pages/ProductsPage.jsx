@@ -3,6 +3,8 @@ import Product from '../components/Product'
 function ProductsPage (props) {
 
     const {products, filteredProducts} = props 
+
+    console.log(filteredProducts)
     
     return (
 

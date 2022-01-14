@@ -1,6 +1,8 @@
+import { useState } from "react"
+
 function BasketItem(props) {
 
-    const {product, setOptionValue, calculateTotalBasketFiltered, filterTotalIndividual} = props 
+    const {product, calculateTotalBasket, filterTotalIndividual, handleOnChangeSelect} = props 
 
     const totalIndividualArray = filterTotalIndividual(product.id)
 
@@ -21,8 +23,8 @@ function BasketItem(props) {
                 <p>
                     Quantity:
 
-                    <select name = "total-options" onChange={function (e) {
-                                setOptionValue(e.target.value)
+                    <select name = "total-options" onChange={function(e) {
+                        handleOnChangeSelect(e.target.value, product)
                     }}>
                             
                         <option value="0">
@@ -45,7 +47,7 @@ function BasketItem(props) {
 
                 </p>
                 
-                <p>Item total: {calculateTotalBasketFiltered(totalIndividualArray)}</p>
+                <p>Item total: {calculateTotalBasket(totalIndividualArray)}</p>
 
             </article>
 

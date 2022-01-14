@@ -5,34 +5,44 @@ function BasketPage(props) {
 
     const {basketProducts, setBasketProducts} = props 
 
-    const [optionValue, setOptionValue] = useState('')
-
-    function calculateTotalBasket(basketProductsParam) {
+    function calculateTotalBasket(baskedProductsParam) {
 
         let total = 0
 
-        for (const product of basketProductsParam) {
-          total += Number(product.price) * Number(optionValue)
+        for (const product of baskedProductsParam) {
+          total += Number(product.price) * product.quantity
         }
     
         return total.toFixed(2)
 
     }
 
-    function calculateTotalBasketFiltered(basketProductsParam) {
+    function handleOnChangeSelect(valueSelect, objectBasket) {
 
-        let total = 0
+        const newObject = {...objectBasket, quantity: valueSelect} //find the index 
 
-        for (const product of basketProductsParam) {
-          total += Number(product.price) * Number(optionValue)
-        }
-    
-        return total.toFixed(2)
+        const newArray = [...basketProducts, objectBasket]
 
+        setBasketProducts(newArray)
     }
+
+    // function calculateTotalBasketItem(productsParam) {
+
+    //     let total = 0
+
+    //     for (const product of productsParam) {
+    //       total += Number(product.price) * Number(optionValueParam)
+    //     }
+    
+    //     return total.toFixed(2)
+
+    // }
+
 
     function filterTotalIndividual(productId) {
-        return basketProducts.filter(item => item.id === productId)
+        const array = basketProducts.filter(item => item.id === productId)
+        console.log(array)
+        return array
     }
 
     return (
@@ -53,10 +63,9 @@ function BasketPage(props) {
                                 key = {product.id}
                                 product = {product}
 
-                                setOptionValue = {setOptionValue}
-                                calculateTotalBasketFiltered = {calculateTotalBasketFiltered}
-
+                                calculateTotalBasket = {calculateTotalBasket}
                                 filterTotalIndividual = {filterTotalIndividual}
+                                handleOnChangeSelect = {handleOnChangeSelect}
                             />
                             
                         )
@@ -65,7 +74,7 @@ function BasketPage(props) {
                     
                 </ul>
 
-                <h3>Your total: {calculateTotalBasket(basketProducts)}</h3>
+                <h3>Your total: {calculateTotalBasket(basketProducts, )}</h3>
 
             </section>
 
