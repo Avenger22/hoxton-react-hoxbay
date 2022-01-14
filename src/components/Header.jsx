@@ -9,12 +9,16 @@ function Header() {
 
     <header
       className="header"
-      style={{ ["--border-colour"]: `var(--${randColour()})` }}
+      style={{ ['--border-colour']: `var(--${randColour})` }}
     >
 
-      <div className="header__logo" style={{ color: `var(--${randColour()})` }}>
+      <div className="header__logo" style={{ color: `var(--${randColour})` }}>
         Hoxbay
-        <Link to='/home'>Home</Link>
+
+        <Link to='/home'>
+            Home
+        </Link>
+
       </div>
 
       <nav className="header__nav">
@@ -23,6 +27,10 @@ function Header() {
 
           <li>
             <Link to='/home'>Home</Link>
+          </li>
+
+          <li>
+            <Link to='/products'>Products</Link>
           </li>
 
           <li>

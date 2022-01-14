@@ -5,11 +5,14 @@ const randColour = ["green", "red", "blue", "yellow"][
     Math.floor(Math.random() * 4)
 ];
 
-function ProductDetailPage() {
+function ProductDetailPage(props) {
 
 
     const params = useParams()
+
     const [product, setProduct] = useState(null)
+
+    const {basketProducts, setBasketPrdoucts} = props 
 
     useEffect(() => {
         fetch(`http://localhost:8000/products/${params.id}`)
@@ -20,8 +23,20 @@ function ProductDetailPage() {
     if (product === null) return <main>Loading...</main>
     if (product.title === undefined) return <main>Product not found</main>
 
-    function handleButtonRedirect() {
-        window.location.href = '/test'
+    function handleButtonRedirect(productParam) {
+
+        // window.location.href = '/test'
+
+        const newProduct = {
+            title: productParam.title,
+            price: productParam.price,
+            description: productParam.description,
+            image: productParam.image
+        }
+
+        const newBasketArray = [...basketProducts, newProduct]
+        setBasketPrdoucts(newBasketArray)
+
     }
 
     return (
@@ -38,6 +53,7 @@ function ProductDetailPage() {
                 <div className="product-detail__side" style={{ borderColor: `var(--${randColour})` }}>
 
                     <h3></h3>
+
                     <h2>{product.title}</h2>
 
                     <p>
@@ -47,7 +63,10 @@ function ProductDetailPage() {
                     <p>{product.price}</p>
 
                     <button
-                        onClick={handleButtonRedirect}>
+                        onClick={
+                            function () {
+                                handleButtonRedirect(product)
+                            }}>
                         Add to basket
                     </button>
 

@@ -11,11 +11,14 @@ function Product(props) {
             <Link to = {`/products/${product.id}`}>
 
                 <article className="product-item">
+
                     <img
-                    src = {product.image}
-                    alt = {product.description}
+                        src = {product.image}
+                        alt = {product.description}
                     />
+
                     <h3>{product.title}</h3>
+
                 </article>
 
             </Link>

@@ -1,4 +1,39 @@
-function BasketPage() {
+import { useState } from "react/cjs/react.development"
+import BasketItem from "../components/BasketItem"
+
+function BasketPage(props) {
+
+    const {basketProducts, setBasketProducts} = props 
+
+    const [optionValue, setOptionValue] = useState('')
+
+    function calculateTotalBasket(basketProductsParam) {
+
+        let total = 0
+
+        for (const product of basketProductsParam) {
+          total += Number(product.price) * Number(optionValue)
+        }
+    
+        return total.toFixed(2)
+
+    }
+
+    function calculateTotalBasketFiltered(basketProductsParam) {
+
+        let total = 0
+
+        for (const product of basketProductsParam) {
+          total += Number(product.price) * Number(optionValue)
+        }
+    
+        return total.toFixed(2)
+
+    }
+
+    function filterTotalIndividual(productId) {
+        return basketProducts.filter(item => item.id === productId)
+    }
 
     return (
 
@@ -10,36 +45,27 @@ function BasketPage() {
 
                 <ul>
 
-                {/* <!-- Basket Item --> */}
-                
-                <li>
-                    <article className="basket-container__item">
-                    <img
-                        src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                        alt="Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"
-                        width="90"
-                    />
-                    <p>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</p>
-                    <p>
-                        Qty:
-                        <select
-                        ><option value="0">0</option
-                        ><option value="1">1</option
-                        ><option value="2">2</option
-                        ><option value="3">3</option></select
-                        >
-                    </p>
-                    
-                    {/* <!-- The item total is calculated using the Qty selected value --> */}
-                    <p>Item total: £109.95</p>
-                    </article>
-                </li>
+                    {
 
-                {/* <!--  --> */}
+                        basketProducts.map(product => 
+                            
+                            <BasketItem 
+                                key = {product.id}
+                                product = {product}
+
+                                setOptionValue = {setOptionValue}
+                                calculateTotalBasketFiltered = {calculateTotalBasketFiltered}
+
+                                filterTotalIndividual = {filterTotalIndividual}
+                            />
+                            
+                        )
+
+                    }
+                    
                 </ul>
 
-                {/* <!-- Basket total is calculated using each item's total from above --> */}
-                <h3>Your total: £109.95</h3>
+                <h3>Your total: {calculateTotalBasket(basketProducts)}</h3>
 
             </section>
 
