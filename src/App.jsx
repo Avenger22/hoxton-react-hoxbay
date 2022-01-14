@@ -23,6 +23,7 @@ function App() {
 
   // #region 'State Object'
   const [products, setProducts] = useState([])
+  const [productsAgain, setProductsAgain] = useState([])
   const [categories, setCategories] = useState([])
 
   const [basketProducts, setBasketProducts] = useState([])
@@ -39,6 +40,14 @@ function App() {
 
   }
 
+  function getProductsAgainFromServer() {
+
+    fetch('http://localhost:8000/products')
+      .then(resp => resp.json())
+      .then(productsFromServer => setProductsAgain(productsFromServer))
+
+  }
+
   function getCategoriesFromServer() {
 
     fetch('http://localhost:8000/categories')
@@ -48,6 +57,7 @@ function App() {
   }
 
   useEffect(getProductsFromServer, [])
+  useEffect(getProductsAgainFromServer, [])
   useEffect(getCategoriesFromServer, [])
   // #endregion
 
@@ -71,8 +81,8 @@ function App() {
     filteredProducts = filterProductsByCategory(filteredProducts)
   }
 
-  else {
-    let initialFilteredProducts = JSON.parse(JSON.stringify(products)) //great for having initial withotu mutating array from state
+  else if (categoryValue.clicked === false) {
+    let initialFilteredProducts = JSON.parse(JSON.stringify(productsAgain)) //great for having initial withotu mutating array from state
     filteredProducts = initialFilteredProducts
   }
 
