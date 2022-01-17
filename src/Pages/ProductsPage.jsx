@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import Product from '../components/Product'
 
-function ProductsPage (props) {
+function ProductsPage(props) {
 
-    const {products, filteredProducts, setCategoryValue, categoryValue, searchTerm, setSearchTerm} = props 
+    const { products, filteredProducts, setCategoryValue, categoryValue, searchTerm, setSearchTerm } = props
+
+
 
     return (
 
@@ -20,20 +22,20 @@ function ProductsPage (props) {
             <section className="products-container main-wrapper">
 
                 <ul className="products-container__list">
-                    
+
                     {
 
-                        filteredProducts.map(product => 
+                        filteredProducts.map(product =>
 
-                            <Product 
-                                key = {product.id}
-                                product = {product}
+                            <Product
+                                key={product.id}
+                                product={product}
                             />
 
                         )
 
                     }
-                   
+
                 </ul>
 
             </section>

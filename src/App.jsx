@@ -13,7 +13,7 @@ import CategoriesProducts from '../src/Pages/CategoriesProducts'
 import HomePage from "./Pages/HomePage"
 import NotFoundPage from './Pages/NotFoundPage'
 
-import {Routes, Route, Navigate} from 'react-router-dom'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
 
 import { useState } from "react"
 import { useEffect } from "react"
@@ -21,55 +21,37 @@ import { useEffect } from "react"
 
 function App() {
 
+
   // #region 'State Object'
+
   const [products, setProducts] = useState([])
-  const [productsAgain, setProductsAgain] = useState([])
 
   const [categories, setCategories] = useState([])
-  const [basketProducts, setBasketProducts] = useState([])
-  
-  const [categoryValue, setCategoryValue] = useState({value: null, clicked: false})
+
+  const [categoryValue, setCategoryValue] = useState({ value: null, clicked: false })
   const [searchTerm, setSearchTerm] = useState('')
   // #endregion
 
   // #region 'Server Functions'
   function getProductsFromServer() {
-
     fetch('http://localhost:8000/products')
       .then(resp => resp.json())
-      .then(productsFromServer1 => setProducts(productsFromServer1))
-
-  }
-
-  function getProductsAgainFromServer() {
-
-    fetch('http://localhost:8000/products')
-      .then(resp => resp.json())
-      .then(productsFromServer2 => setProductsAgain(productsFromServer2))
+      .then(productsFromServer1 => {
+        setProducts(productsFromServer1)
+      })
 
   }
 
   function getCategoriesFromServer() {
-
     fetch('http://localhost:8000/categories')
       .then(resp => resp.json())
-      .then(categoriesFromServer => setCategories(categoriesFromServer)) 
+      .then(categoriesFromServer => setCategories(categoriesFromServer))
 
   }
 
-  function getBasketFromServer() {
-
-    fetch('http://localhost:8000/basket')
-      .then(resp => resp.json())
-      .then(basketFromServer => setBasketProducts(basketFromServer)) 
-
-  }
-
-  useEffect(getProductsAgainFromServer, [])
   useEffect(getProductsFromServer, [])
 
   useEffect(getCategoriesFromServer, [])
-  useEffect(getBasketFromServer, [])
   // #endregion
 
   // #region 'Conditionals'
@@ -82,13 +64,12 @@ function App() {
   // }
 
   let filteredProducts = products
-  let initialFilteredProducts = JSON.parse(JSON.stringify(productsAgain))
+  let initialFilteredProducts = JSON.parse(JSON.stringify(products))
 
   // if (searchTerm !== '' && categoryValue.clicked === false) {
   //   filteredProducts = filterProductsByName(filteredProducts)
   //   console.log(filteredProducts)
   // }
-
   if (categoryValue.clicked === true) {
     filteredProducts = filterProductsByCategory(filteredProducts)
   }
@@ -105,10 +86,10 @@ function App() {
     <div className="app">
 
       <main>
-        
-        <Header 
-          categoryValue = {categoryValue}
-          setCategoryValue = {setCategoryValue}
+
+        <Header
+          categoryValue={categoryValue}
+          setCategoryValue={setCategoryValue}
         />
 
         {
@@ -117,82 +98,82 @@ function App() {
 
         <Routes>
 
-          <Route 
-            index 
-            element={<Navigate replace to="/home" />} 
+          <Route
+            index
+            element={<Navigate replace to="/home" />}
           />
 
-          <Route 
-            path = '/home' 
-            element = {<HomePage />}>
+          <Route
+            path='/home'
+            element={<HomePage />}>
           </Route>
 
-          <Route 
-            path = '/categories' 
-            element = {
-              <CategoriesPage 
-                categories = {categories} 
-                setCategoryValue = {setCategoryValue}
-                categoryValue = {categoryValue}
+          <Route
+            path='/categories'
+            element={
+              <CategoriesPage
+                categories={categories}
+                setCategoryValue={setCategoryValue}
+                categoryValue={categoryValue}
               />}
-            >
+          >
           </Route>
 
-          <Route 
-                path = '/categories/:id' 
-                element = {<ProductsPage 
-                products = {products} 
+          <Route
+            path='/categories/:id'
+            element={<ProductsPage
+              products={products}
 
-                filteredProducts = {filteredProducts}
-                setCategoryValue = {setCategoryValue}
+              filteredProducts={filteredProducts}
+              setCategoryValue={setCategoryValue}
 
-                searchTerm = {searchTerm}
-                setSearchTerm = {setSearchTerm}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+            />}
+          >
+          </Route>
+
+          <Route
+            path='/basket'
+            element={
+              <BasketPage
+                products={products.filter(item => item?.quantity > 0)}
+                setProducts={setProducts}
               />}
-            >
+          >
           </Route>
 
-          <Route 
-            path = '/basket' 
-            element = {
-              <BasketPage 
-                basketProducts = {basketProducts} 
-                setBasketProducts = {setBasketProducts}
+          <Route
+            path='/products'
+            element={
+              <ProductsPage
+                products={products}
+                filteredProducts={filteredProducts}
+
+                categoryValue={categoryValue}
+                setCategoryValue={setCategoryValue}
+
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
               />}
-            >
+          >
           </Route>
-          
-          <Route 
-            path = '/products' 
-            element = {
-              <ProductsPage 
-                products = {products} 
-                filteredProducts = {filteredProducts}
 
-                categoryValue = {categoryValue}
-                setCategoryValue = {setCategoryValue}
+          <Route
+            path='*'
+            element={<NotFoundPage />}>
+          </Route>
 
-                searchTerm = {searchTerm}
-                setSearchTerm = {setSearchTerm}
+          <Route
+            path='/products/:id'
+            element={
+              <ProductDetailPage
+                products={products}
+                setProducts={setProducts}
               />}
-            >
+          >
           </Route>
 
-          <Route 
-            path='*' 
-            element = {<NotFoundPage />}>
-          </Route>
-          
-          <Route 
-            path = '/products/:id' 
-            element = {
-              <ProductDetailPage  
-                basketProducts = {basketProducts} 
-                setBasketProducts = {setBasketProducts}
-              />}
-            >
-          </Route>
-        
         </Routes>
 
         {

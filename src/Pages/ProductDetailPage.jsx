@@ -12,12 +12,12 @@ function ProductDetailPage(props) {
 
     const [product, setProduct] = useState(null)
 
-    const {basketProducts, setBasketProducts} = props 
+    const { products, setProducts } = props
 
     useEffect(() => {
         fetch(`http://localhost:8000/products/${params.id}`)
-          .then(resp => resp.json())
-          .then(productFromServer => setProduct(productFromServer))
+            .then(resp => resp.json())
+            .then(productFromServer => setProduct(productFromServer))
     }, [])
 
     if (product === null) {
@@ -30,15 +30,18 @@ function ProductDetailPage(props) {
 
     function handleButtonAddBasket(product) {
 
-        let basketCopy = JSON.parse(JSON.stringify(basketProducts))
-        
-        const index = basketCopy.findIndex(target => target.id === product.id)
-        
-        const item = basketCopy[index]
-        const newItem = {...item, quantity: 0 }
+        let itemsCopy = JSON.parse(JSON.stringify(products))
 
-        basketCopy[index] = newItem
-        setBasketProducts(basketCopy)
+        const index = itemsCopy.findIndex(target => target.id === product.id)
+
+        const item = itemsCopy[index]
+        const newItem = {
+            ...item,
+            quantity: item?.quantity ? item.quantity + 1 : 1
+        }
+
+        itemsCopy[index] = newItem
+        setProducts(itemsCopy)
 
     }
 
@@ -49,8 +52,8 @@ function ProductDetailPage(props) {
             <section className="product-detail main-wrapper">
 
                 <img
-                    src = {product.image}
-                    alt = {product.description}
+                    src={product.image}
+                    alt={product.description}
                 />
 
                 <div className="product-detail__side" style={{ borderColor: `var(--${randColour})` }}>
