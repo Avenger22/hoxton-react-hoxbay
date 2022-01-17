@@ -10,38 +10,25 @@ function BasketPage(props) {
         let total = 0
 
         for (const product of baskedProductsParam) {
-          total += Number(product.price) * product.quantity
+          total += Number(product.price) * Number(product.quantity)
         }
     
         return total.toFixed(2)
 
     }
-
+    
     function handleOnChangeSelect(valueSelect, objectBasket) {
 
         const newObject = {...objectBasket, quantity: valueSelect} //find the index 
+        const newArray = [...basketProducts, newObject]
 
-        const newArray = [...basketProducts, objectBasket]
-
+        Array.from([...new Set(newArray)])
         setBasketProducts(newArray)
+
     }
 
-    // function calculateTotalBasketItem(productsParam) {
-
-    //     let total = 0
-
-    //     for (const product of productsParam) {
-    //       total += Number(product.price) * Number(optionValueParam)
-    //     }
-    
-    //     return total.toFixed(2)
-
-    // }
-
-
     function filterTotalIndividual(productId) {
-        const array = basketProducts.filter(item => item.id === productId)
-        console.log(array)
+        const array = basketProducts.filter(item => item.id === productId)        
         return array
     }
 
@@ -74,7 +61,7 @@ function BasketPage(props) {
                     
                 </ul>
 
-                <h3>Your total: {calculateTotalBasket(basketProducts, )}</h3>
+                <h3>Your total: {calculateTotalBasket(basketProducts)}</h3>
 
             </section>
 

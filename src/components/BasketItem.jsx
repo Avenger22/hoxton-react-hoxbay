@@ -23,7 +23,7 @@ function BasketItem(props) {
                 <p>
                     Quantity:
 
-                    <select name = "total-options" onChange={function(e) {
+                    <select name = "total-options" defaultValue = {product.quantity} onChange={function(e) {
                         handleOnChangeSelect(e.target.value, product)
                     }}>
                             

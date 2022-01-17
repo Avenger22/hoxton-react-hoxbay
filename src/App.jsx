@@ -24,9 +24,10 @@ function App() {
   // #region 'State Object'
   const [products, setProducts] = useState([])
   const [productsAgain, setProductsAgain] = useState([])
-  const [categories, setCategories] = useState([])
 
+  const [categories, setCategories] = useState([])
   const [basketProducts, setBasketProducts] = useState([])
+  
   const [categoryValue, setCategoryValue] = useState({value: null, clicked: false})
   const [searchTerm, setSearchTerm] = useState('')
   // #endregion
@@ -36,7 +37,7 @@ function App() {
 
     fetch('http://localhost:8000/products')
       .then(resp => resp.json())
-      .then(productsFromServer => setProducts(productsFromServer))
+      .then(productsFromServer1 => setProducts(productsFromServer1))
 
   }
 
@@ -44,7 +45,7 @@ function App() {
 
     fetch('http://localhost:8000/products')
       .then(resp => resp.json())
-      .then(productsFromServer => setProductsAgain(productsFromServer))
+      .then(productsFromServer2 => setProductsAgain(productsFromServer2))
 
   }
 
@@ -56,14 +57,24 @@ function App() {
 
   }
 
-  useEffect(getProductsFromServer, [])
+  function getBasketFromServer() {
+
+    fetch('http://localhost:8000/basket')
+      .then(resp => resp.json())
+      .then(basketFromServer => setBasketProducts(basketFromServer)) 
+
+  }
+
   useEffect(getProductsAgainFromServer, [])
+  useEffect(getProductsFromServer, [])
+
   useEffect(getCategoriesFromServer, [])
+  useEffect(getBasketFromServer, [])
   // #endregion
 
   // #region 'Conditionals'
-  function filterProductsByCategory(filteredProductsParam) {
-    return filteredProductsParam.filter(product => product.categoryId === categoryValue.value)
+  function filterProductsByCategory(filteredProducts) {
+    return filteredProducts.filter(product => product.categoryId === categoryValue.value)
   }
 
   // function filterProductsByName(filteredProductsParam) {
@@ -71,6 +82,7 @@ function App() {
   // }
 
   let filteredProducts = products
+  let initialFilteredProducts = JSON.parse(JSON.stringify(productsAgain))
 
   // if (searchTerm !== '' && categoryValue.clicked === false) {
   //   filteredProducts = filterProductsByName(filteredProducts)
@@ -82,7 +94,6 @@ function App() {
   }
 
   else if (categoryValue.clicked === false) {
-    let initialFilteredProducts = JSON.parse(JSON.stringify(productsAgain)) //great for having initial withotu mutating array from state
     filteredProducts = initialFilteredProducts
   }
 

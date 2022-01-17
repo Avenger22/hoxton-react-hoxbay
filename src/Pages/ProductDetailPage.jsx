@@ -20,13 +20,19 @@ function ProductDetailPage(props) {
           .then(productFromServer => setProduct(productFromServer))
     }, [])
 
-    if (product === null) return <main>Loading...</main>
-    if (product.title === undefined) return <main>Product not found</main>
+    if (product === null) {
+        return <main>Loading...</main>
+    }
+
+    if (product.title === undefined) {
+        return <main>Product not found</main>
+    }
 
     function handleButtonAddBasket(productParam) {
 
-        const newProduct = {...productParam,  quantity: productParam.quantity? productParam.quantity + 1 : 1}
+        const newProduct = {...productParam}
         const newBasketArray = [...basketProducts, newProduct]
+        
         setBasketProducts(newBasketArray)
 
     }
@@ -34,14 +40,6 @@ function ProductDetailPage(props) {
     return (
 
         <main>
-
-                {/* <Link className = "special-a" to="/products">
-                    <button onClick = {function(e) {
-                            
-                        }}>
-                            Go back
-                    </button>
-                </Link> */}
 
             <section className="product-detail main-wrapper">
 

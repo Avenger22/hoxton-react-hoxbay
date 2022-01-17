@@ -19,15 +19,6 @@ function ProductsPage (props) {
 
             <section className="products-container main-wrapper">
 
-                {/* <Link className = "special-a" to="/home">
-                    <button onClick = {function() {
-                            const newObject = {...categoryValue, clicked: !categoryValue.clicked}
-                            setCategoryValue(newObject)
-                        }}>
-                            Show All no filter
-                    </button>
-                </Link> */}
-
                 <ul className="products-container__list">
                     
                     {

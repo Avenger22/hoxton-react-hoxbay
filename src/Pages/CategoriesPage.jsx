@@ -12,12 +12,14 @@ function CategoriesPage(props) {
             <section className="categories-container main-wrapper">
 
                 <Link className = "special-a" to="/products">
+
                     <button onClick = {function() {
-                            const newObject = {...categoryValue, clicked: !categoryValue.clicked}
+                            const newObject = {...categoryValue, clicked: false, value: null}
                             setCategoryValue(newObject)
                         }}>
                             Clear Categories
                     </button>
+                    
                 </Link>
 
                 <ul className="categories-container__list">
