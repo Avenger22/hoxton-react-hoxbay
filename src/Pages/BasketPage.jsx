@@ -17,13 +17,18 @@ function BasketPage(props) {
 
     }
     
-    function handleOnChangeSelect(valueSelect, objectBasket) {
+    function handleOnChangeSelect(objectBasket) {
 
-        const newObject = {...objectBasket, quantity: valueSelect} //find the index 
-        const newArray = [...basketProducts, newObject]
+        let basketCopy = JSON.parse(JSON.stringify(basketProducts))
+        
+        const index = basketCopy.findIndex(target => target.id === objectBasket.id)
+        const item = basketCopy[index]
 
-        Array.from([...new Set(newArray)])
-        setBasketProducts(newArray)
+        const newItem = {...objectBasket, quantity: objectBasket.quantity ? objectBasket.quantity + 1 : 1 }
+
+        basketCopy[index] = newItem
+
+        setBasketProducts(basketCopy)
 
     }
 

@@ -28,12 +28,17 @@ function ProductDetailPage(props) {
         return <main>Product not found</main>
     }
 
-    function handleButtonAddBasket(productParam) {
+    function handleButtonAddBasket(product) {
 
-        const newProduct = {...productParam}
-        const newBasketArray = [...basketProducts, newProduct]
+        let basketCopy = JSON.parse(JSON.stringify(basketProducts))
         
-        setBasketProducts(newBasketArray)
+        const index = basketCopy.findIndex(target => target.id === product.id)
+        
+        const item = basketCopy[index]
+        const newItem = {...item, quantity: 0 }
+
+        basketCopy[index] = newItem
+        setBasketProducts(basketCopy)
 
     }
 
